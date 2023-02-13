@@ -27,7 +27,9 @@ public class PlayerHarvest : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Space)) {
+        if (canHarvestFruits 
+            && backpack.currentNumberOfStoredEnergies != backpack.maxNumberOfEnergiesToStore) 
+        {
             TryHarvestFruit();
         }
     }
@@ -44,17 +46,15 @@ public class PlayerHarvest : MonoBehaviour
 
             if (hitBush.HasFruits())
             {
-
                 audioSource.Play();
                 playerMovement.HarvestStopMovement(harvestTime);
-                backpack.AddFruits(hitBush.HarvestFruit());
+                backpack.AddEnergy(hitBush.HarvestFruit());
             }
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
         if(collision.CompareTag("Bush"))
         {
             canHarvestFruits = true;

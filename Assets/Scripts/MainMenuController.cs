@@ -6,21 +6,23 @@ using UnityEngine.SceneManagement;
 public class MainMenuController : MonoBehaviour
 {
     [SerializeField]
-    private Canvas howToPlayCanvas;
+    private GameObject stagesMenu, mainMenu;
 
-    public void PlayGame()
+    public void SetStageToPlay(string stage)
     {
-        SceneManager.LoadScene("Gameplay");
+        SceneManager.LoadScene(stage);
     }
 
-    public void HowToPlay()
+    public void OnPlayClicked()
     {
-        howToPlayCanvas.enabled = true;
+        stagesMenu.SetActive(true);
+        mainMenu.SetActive(false);
     }
 
     public void BackToMainMenu()
     {
-        howToPlayCanvas.enabled = false;
+        mainMenu.SetActive(true);
+        stagesMenu.SetActive(false);
     }
 
 }

@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    PlayerInput playerInput;
 
     public float movementSpeed = 3f;
 
@@ -13,18 +15,21 @@ public class PlayerMovement : MonoBehaviour
 
     private SpriteRenderer sr;
 
+    private Transform tf;
+
     private float harvestTimer;
     private bool isHarvesting;
 
     private GameObject artifact;
-
-    private string MOVEMENT_AXIS_X = "Horizontal";
-    private string MOVEMENT_AXIS_Y = "Vertical";
+    [SerializeField]
+    private GameObject aim;
 
     private void Awake()
     {
+        tf = GetComponent<Transform>();
         myBody = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+        playerInput = GetComponent<PlayerInput>();
     }
 
     private void Update()
@@ -39,27 +44,30 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isHarvesting)
             myBody.velocity = Vector2.zero;
+
         else
         {
-            moveVector = new Vector2(Input.GetAxis(MOVEMENT_AXIS_X), Input.GetAxis(MOVEMENT_AXIS_Y));
+            Vector2 input = playerInput.actions["Move"].ReadValue<Vector2>();
+            moveVector = new Vector2(input.x, input.y);
 
             if (moveVector.sqrMagnitude > 1)
                 moveVector = moveVector.normalized;
 
             myBody.velocity = new Vector2(moveVector.x * movementSpeed, moveVector.y * movementSpeed);
-
         }
     }
 
     void FlipSprite()
     {
-        if (Input.GetAxisRaw(MOVEMENT_AXIS_X) == 1)
+        if (moveVector.x > 0)
         {
             sr.flipX = false;
+            //tf.localScale = new Vector3(0.5f, 0.5f, 1f);
         }
-        else if (Input.GetAxisRaw(MOVEMENT_AXIS_X) == -1)
+        else if (moveVector.x < 0)
         {
             sr.flipX = true;
+            //tf.localScale = new Vector3(-0.5f, 0.5f, 1f);
         }
     }
 
@@ -68,7 +76,8 @@ public class PlayerMovement : MonoBehaviour
         harvestTimer = Time.time + time;
     }
 
-    public bool IsHarvesting() {
+    public bool IsHarvesting() 
+    {
         return isHarvesting;
     }
 } 

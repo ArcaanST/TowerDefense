@@ -10,7 +10,7 @@ public class WolfHealth : MonoBehaviour
     private float scale;
 
     [SerializeField]
-    private int maxHealth = 100;
+    private int maxHealth;
 
     private int currentHealth;
 
@@ -29,32 +29,5 @@ public class WolfHealth : MonoBehaviour
 
         if (currentHealth <= 0)
             Destroy(gameObject);
-
-
     }
-
-
-} // class
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}

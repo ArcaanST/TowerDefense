@@ -4,9 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Bush
-  - Artifact
   - Wolf
+  - Energy
+  - Bush
+  - GunRay
+  - Artifact
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -14,15 +17,15 @@ TagManager:
   - 
   - Water
   - UI
-  - Bush
+  - Player
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - ActiveLines
+  - FlattenedLines
+  - Background
+  - Bins
+  - FlungTrash
+  - WorldBall
+  - Checkpoints
   - 
   - 
   - 
@@ -44,18 +47,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Bush
-    uniqueID: 162036807
+  - name: Energy
+    uniqueID: 288570331
     locked: 0
-  - name: Artifact
-    uniqueID: 530294697
-    locked: 0
-  - name: Wolf
-    uniqueID: 870717223
+  - name: Monster
+    uniqueID: 1810357455
     locked: 0
   - name: Player
-    uniqueID: 14943903
+    uniqueID: 1286163957
+    locked: 0
+  - name: Trash
+    uniqueID: 2727232013
     locked: 0
   - name: UI
-    uniqueID: 2155715059
+    uniqueID: 2419489853
     locked: 0

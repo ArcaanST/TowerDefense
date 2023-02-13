@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BushVisual : MonoBehaviour
 {
-
     [SerializeField]
     private Sprite[] bushSprites, fruitSprites, drySprites;
 
@@ -34,11 +33,13 @@ public class BushVisual : MonoBehaviour
         }
     }
 
-    public BushVariant GetBushVariant() {
+    public BushVariant GetBushVariant() 
+    {
         return bushVariant;
     }
 
-    public void SetToDry() {
+    public void SetToDry() 
+    {
         sr.sprite = drySprites[(int)bushVariant];
     }
 
@@ -56,7 +57,6 @@ public class BushVisual : MonoBehaviour
             StartCoroutine(_HideFruits(waitTimeForFruit, i));
             waitTimeForFruit += hideTimePerFruit;
         }
-
     }
 
     public void ShowFruits()
@@ -64,28 +64,4 @@ public class BushVisual : MonoBehaviour
         for(int i = 0; i < fruitsRenderers.Length; i++)
             fruitsRenderers[i].enabled = true;
     }
-
-} // class
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}

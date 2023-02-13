@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class WolfAI : MonoBehaviour
 {
-
     [SerializeField]
     private bool isEater;
 
@@ -12,235 +11,171 @@ public class WolfAI : MonoBehaviour
     private float moveSpeed = 1f;
 
     [SerializeField]
-    private int attackDamage = 5;
+    private int attackDamage = 1;
 
     [SerializeField]
-    private float attackTimeTreshold = 1f;
+    private float attackTimeTreshold = 2f;
 
     [SerializeField]
-    private float eatTimeTreshold = 2f;
+    private float eatTimeTreshold = 4;
 
     [SerializeField]
-    private LayerMask bushMask;
+    private LayerMask playerMask;
 
     [HideInInspector]
     public bool isMoving, left;
 
-    private Artifact artifact;
+    [SerializeField]
+    private Artifact[] artifact;
+    private Artifact currentArtifact;
 
-    private BushFruits bushFruitsTarget;
+    private PlayerHealth playerTarget;
 
     private float attackTimer;
     private float eatTimer;
 
-    private bool killingBush;
+    private bool killingPlayer;
     private bool isAttacking;
 
     // Start is called before the first frame update
     void Start()
     {
-
         if (isEater)
         {
             SearchForTarget();
-            killingBush = false;
+            killingPlayer = false;
         }
         else
         {
             isAttacking = false;
         }
 
-        artifact = GameObject.FindWithTag("Artifact").GetComponent<Artifact>();
+        artifact = FindObjectsOfType<Artifact>();
 
+        currentArtifact = artifact[Random.Range(0, artifact.Length)];
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if (!artifact)
+        if (!currentArtifact)
             return;
 
         if (isEater)
         {
+            if (Vector2.Distance(transform.position, playerTarget.transform.position) > 0.5f)
+                killingPlayer = false;
 
-            if (bushFruitsTarget && bushFruitsTarget.enabled &&
-                bushFruitsTarget.HasFruits() && !killingBush)
+            if (playerTarget && playerTarget.enabled && !killingPlayer)
             {
-
                 // if not close to the buhs continue walking towards it, else stop and eat the bush
-                if (Vector2.Distance(transform.position, bushFruitsTarget.transform.position) > 0.5f)
+                if (Vector2.Distance(transform.position, playerTarget.transform.position) > 0.5f)
                 {
-
                     float step = moveSpeed * Time.deltaTime;
 
                     transform.position = Vector2.MoveTowards(transform.position,
-                        bushFruitsTarget.transform.position, step);
+                        playerTarget.transform.position, step);
 
                     isMoving = true;
-
-
                 }
+
                 else
                 {
-
                     isMoving = false;
-                    bushFruitsTarget.HarvestFruit();
                     eatTimer = Time.time + eatTimeTreshold;
-                    killingBush = true;
-
+                    killingPlayer = true;
                 }
-
-
             }
-            else if (killingBush)
-            {
 
+            else if (killingPlayer)
+            {
+                Debug.Log(killingPlayer);
                 if (Time.time > eatTimer)
                 {
-
-                    bushFruitsTarget.EatBushFruits();
-                    killingBush = false;
-
-                    SearchForTarget();
-
+                    playerTarget.TakeDamage(attackDamage);
+                    killingPlayer = false;
                 }
-
             }
+
             else
             {
                 SearchForTarget();
             }
 
-
-
-            if (bushFruitsTarget)
+            if (playerTarget)
             {
-                if (bushFruitsTarget.transform.position.x < transform.position.x)
+                if (playerTarget.transform.position.x < transform.position.x)
                     left = true;
                 else
                     left = false;
             }
 
-
-            if (!bushFruitsTarget)
+            if (!playerTarget)
                 SearchForTarget();
-
         }
+
         else
         {
             // wolf that destroys artifact
-
-            if (Vector2.Distance(transform.position, artifact.transform.position) > 1.5f)
+            if (Vector2.Distance(transform.position, currentArtifact.transform.position) > 0.5f)
             {
-
                 float step = moveSpeed * Time.deltaTime;
 
                 transform.position = Vector2.MoveTowards(transform.position,
-                    artifact.transform.position, step);
+                    currentArtifact.transform.position, step);
 
                 isMoving = true;
-
             }
             else if (!isAttacking)
             {
-
                 isAttacking = true;
                 attackTimer = Time.time + attackTimeTreshold;
 
                 isMoving = false;
-
             }
 
             if (isAttacking)
             {
-
                 if (Time.time > attackTimer)
                 {
-
                     Attack();
                     attackTimer = Time.time + attackTimeTreshold;
-
                 }
-
             }
 
-            if (artifact.transform.position.x < transform.position.x)
+            if (currentArtifact.transform.position.x < transform.position.x)
                 left = true;
             else
                 left = false;
-
         }
-
     } // update
 
     void SearchForTarget()
     {
-
-        bushFruitsTarget = null;
+        playerTarget = null;
 
         Collider2D[] hits;
 
         for (int i = 1; i < 50; i++) {
 
-            hits = Physics2D.OverlapCircleAll(transform.position, Mathf.Exp(i), bushMask);
+            hits = Physics2D.OverlapCircleAll(transform.position, Mathf.Exp(i), playerMask);
 
             foreach (Collider2D hit in hits)
             {
-
-                if (hit && (hit.GetComponent<BushFruits>().HasFruits() &&
-                    hit.GetComponent<BushFruits>().enabled))
+                if (hit && (hit.GetComponent<PlayerHealth>() &&
+                    hit.GetComponent<PlayerHealth>().enabled))
                 {
-                    bushFruitsTarget = hit.GetComponent<BushFruits>();
+                    playerTarget = hit.GetComponent<PlayerHealth>();
                     break;
                 }
-
             }
-
-            if (bushFruitsTarget)
+            if (playerTarget)
                 break;
-
         }
-
     } // search for target
 
     void Attack()
     {
-        artifact.TakeDamage(attackDamage);
+        currentArtifact.TakeDamage(attackDamage);
     }
-
-} // class
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}

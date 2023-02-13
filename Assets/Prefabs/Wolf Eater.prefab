@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.584, z: 0}
   m_LocalScale: {x: 1, y: 0.1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8718509887110791945}
   m_RootOrder: 0
@@ -42,6 +43,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -68,8 +70,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 870717223
-  m_SortingLayer: 3
+  m_SortingLayerID: 1810357455
+  m_SortingLayer: 2
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: be44847e6d173440594076bc9933d2cc, type: 3}
   m_Color: {r: 0.40784314, g: 0.68235296, b: 0.48235294, a: 1}
@@ -114,6 +116,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 15.28, y: -13.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 111897091}
   m_Father: {fileID: 0}
@@ -130,6 +133,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -156,8 +160,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 870717223
-  m_SortingLayer: 3
+  m_SortingLayerID: 1810357455
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 750ebb695b2fd7447941a49d66a98b0c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -247,14 +251,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEater: 1
   moveSpeed: 1
-  attackDamage: 5
-  attackTimeTreshold: 1
-  eatTimeTreshold: 2
-  bushMask:
+  attackDamage: 20
+  attackTimeTreshold: 0.5
+  eatTimeTreshold: 0.5
+  playerMask:
     serializedVersion: 2
     m_Bits: 64
   isMoving: 0
   left: 0
+  artifact: []
 --- !u!114 &1482616562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,4 +273,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthUI: {fileID: 111897090}
-  maxHealth: 100
+  maxHealth: 150

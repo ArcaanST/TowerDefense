@@ -9,6 +9,30 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: f5f41fb8dd49644828d545a7ca9638be
   - enabled: 1
-    path: Assets/Scenes/Gameplay.unity
+    path: Assets/Scenes/Fase 1.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Fase 2.unity
+    guid: 28b02bda315686b458e06f08acedeb31
+  - enabled: 1
+    path: Assets/Scenes/Fase 3.unity
+    guid: 203cf20f6a955d0418b828e17769a22a
+  - enabled: 1
+    path: Assets/Scenes/Fase 4.unity
+    guid: fd18b30539c20b74aba9d44b467a8b7e
+  - enabled: 1
+    path: Assets/Scenes/Fase 5.unity
+    guid: 02e40f005b3836e449d0349253489ed2
+  - enabled: 0
+    path: Assets/Demo/Scenes/Menu.unity
+    guid: b8bfcfa859ccfa447ac036b575bf8a68
+  - enabled: 0
+    path: Assets/Demo/Scenes/Rolling.unity
+    guid: 890fa54e762862e4baa18fa9e56904ee
+  - enabled: 0
+    path: Assets/Demo/Scenes/Swiping.unity
+    guid: bc7ad4ee5e11ac64fba73a3be6d0b580
+  - enabled: 0
+    path: Assets/Demo/Scenes/Tapping.unity
+    guid: 5cbd551b16f2a584a946e64452f064f5
   m_configObjects: {}

@@ -17,7 +17,6 @@ public class BushFruits : MonoBehaviour
 
     private void Start()
     {
-
         bushVisual = GetComponent<BushVisual>();
 
         // randomly initialize some bushes and fruits
@@ -31,7 +30,6 @@ public class BushFruits : MonoBehaviour
             hasFruits = true;
             bushVisual.ShowFruits();
         }
-
     }
 
     private void Update()
@@ -42,8 +40,8 @@ public class BushFruits : MonoBehaviour
         }
     }
 
-    public int HarvestFruit() {
-
+    public int HarvestFruit() 
+    {
         if (hasFruits)
         {
             hasFruits = false;
@@ -53,7 +51,6 @@ public class BushFruits : MonoBehaviour
         }
         else
             return 0;
-
     }
 
     public bool HasFruits() {
@@ -65,31 +62,4 @@ public class BushFruits : MonoBehaviour
         enabled = false;
         bushVisual.SetToDry();
     }
-
-} // class
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}

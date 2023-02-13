@@ -4,115 +4,92 @@ using UnityEngine;
 
 public class Artifact : MonoBehaviour
 {
-
     public int health;
-    public int maxHealth = 150;
-
-    public int bleed = 2;
+    public int maxHealth;
 
     private AudioSource audioSource;
 
-    private float bleedTimer;
-
     private PlayerBackpack playerBackpack;
+
+    [SerializeField]
+    GameObject[] sheeps;
+
+    private int currentSheep;
+    private int maxSheep;
+
+    float timer = 30;
+    float currentTimer = 0;
 
     private void Awake()
     {
+        maxHealth = sheeps.Length;
+        maxSheep = sheeps.Length;
+        currentSheep = sheeps.Length;
+        health = sheeps.Length;
+
         audioSource = GetComponent<AudioSource>();
-        health = maxHealth;
-
-        bleedTimer = Time.time + 1f;
-
         playerBackpack = GameObject.FindWithTag("Player").GetComponent<PlayerBackpack>();
-
     }
 
     private void Update()
     {
-        
-        if (Time.time > bleedTimer) {
-            health -= bleed;
-            bleedTimer = Time.time + 1f;
+        /*
+        currentTimer += Time.deltaTime;
+        if(currentTimer >= timer)
+        {
+            RiseSheep();
+            currentTimer = 0;
         }
-
-        CheckHealth();
-
+        */
     }
 
-    public void TakeDamage(int damageAmount) {
-
+    public void TakeDamage(int damageAmount) 
+    {
         health -= damageAmount;
 
-        CheckHealth();
+        sheeps[health].SetActive(false);
+        currentSheep -= 1;
 
+        CheckHealth();
+    }
+
+    void RiseSheep()
+    {
+        if(currentSheep < maxSheep)
+        {
+            health += 1;
+            sheeps[health - 1].SetActive(true);
+        }
     }
 
     void CheckHealth()
     {
-        if (health <= 0) {
-
+        if (health <= 0) 
+        {
             health = 0;
-
             // show game over UI
             GameOverUIController.instance.GameOver("You Lose!");
 
             Destroy(gameObject);
-
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
         if (collision.CompareTag("Player"))
         {
-
             //if (collision.GetComponent<PlayerBackpack>().currentNumberOfStoredFruits != 0)
             //    audioSource.Play();
 
             //health += collision.GetComponent<PlayerBackpack>().TakeFruits();
 
-            if (playerBackpack.currentNumberOfStoredFruits != 0)
+            if (playerBackpack.currentNumberOfStoredEnergies != 0)
                 audioSource.Play();
 
-            health += playerBackpack.TakeFruits();
+            health += playerBackpack.TakeEnergy();
 
             if (health > maxHealth)
                 health = maxHealth;
-
         }
-
     }
-
-} // class
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}

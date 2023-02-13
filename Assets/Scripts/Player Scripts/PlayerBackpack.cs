@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class PlayerBackpack : MonoBehaviour
 {
-    public int maxNumberOfFruitsToStore = 50;
-    public int currentNumberOfStoredFruits;
+    public int maxNumberOfEnergiesToStore = 3;
+    public int currentNumberOfStoredEnergies;
 
     [SerializeField]
     private Text backpackInfoTxt;
@@ -16,28 +16,28 @@ public class PlayerBackpack : MonoBehaviour
         SetBackpackInfoText(0);
     }
 
-    public void AddFruits(int amount)
+    public void AddEnergy(int amount)
     {
-        currentNumberOfStoredFruits += amount;
+        currentNumberOfStoredEnergies += amount;
 
-        if (currentNumberOfStoredFruits > maxNumberOfFruitsToStore)
-            currentNumberOfStoredFruits = maxNumberOfFruitsToStore;
+        if (currentNumberOfStoredEnergies > maxNumberOfEnergiesToStore)
+            currentNumberOfStoredEnergies = maxNumberOfEnergiesToStore;
 
-        SetBackpackInfoText(currentNumberOfStoredFruits);
+        SetBackpackInfoText(currentNumberOfStoredEnergies);
     }
 
-    public int TakeFruits()
+    public int TakeEnergy()
     {
-        int takenFruits = currentNumberOfStoredFruits;
-        currentNumberOfStoredFruits = 0;
+        int takenEnergies = currentNumberOfStoredEnergies * 20;
+        currentNumberOfStoredEnergies = 0;
 
-        SetBackpackInfoText(currentNumberOfStoredFruits);
+        SetBackpackInfoText(currentNumberOfStoredEnergies);
 
-        return takenFruits;
+        return takenEnergies;
     }
 
     void SetBackpackInfoText(int amount)
     {
-        backpackInfoTxt.text = "Backpack: " + amount + "/" + maxNumberOfFruitsToStore;
+        backpackInfoTxt.text = "Backpack: " + amount + "/" + maxNumberOfEnergiesToStore;
     }
 } 

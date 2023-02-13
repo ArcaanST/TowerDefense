@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class GameOverUIController : MonoBehaviour
 {
-
     public static GameOverUIController instance;
 
     [SerializeField]
@@ -18,18 +17,19 @@ public class GameOverUIController : MonoBehaviour
     [SerializeField]
     private GameObject enemySpawner;
 
+
     private void Awake()
     {
         if (instance == null)
             instance = this;
     }
 
-    public void GameOver(string gameOverInfo) {
+    public void GameOver(string gameOverInfo) 
+    {
         gameOverText.text = gameOverInfo;
         gameOverCanvas.enabled = true;
 
         Destroy(enemySpawner);
-
     }
 
     public void RestartGame()
@@ -41,34 +41,4 @@ public class GameOverUIController : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
-
-
-} // class
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
